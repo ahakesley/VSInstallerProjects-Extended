@@ -14,7 +14,8 @@ namespace SetupProjectHelper.VdprojLibrary
             T? instance = new T();
             Type type = typeof(T);
 
-            foreach (PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            PropertyInfo[] typeProperties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo property in typeProperties)
             {
                 VdprojPropertyAttribute? propertyAttribute = property.GetCustomAttribute<VdprojPropertyAttribute>();
                 if (propertyAttribute != null && node.Properties.TryGetValue(propertyAttribute.Key, out string? rawValue))
@@ -24,7 +25,7 @@ namespace SetupProjectHelper.VdprojLibrary
                 }
             }
 
-            foreach (PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            foreach (PropertyInfo property in typeProperties)
             {
                 VdprojNodeAttribute? nodeAttribute = property.GetCustomAttribute<VdprojNodeAttribute>();
                 if (nodeAttribute == null) continue;
