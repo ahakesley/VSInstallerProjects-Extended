@@ -69,6 +69,9 @@ public class FileEntry
     [VdprojProperty("IsolateTo")]
     public string IsolateTo { get; set; } = string.Empty;
 
+    [VdprojNode("ScatterAssemblies")] 
+    public ScatterAssemblyNode ScatterAssemblies { get; set; } = new();
+
     public override string ToString() => NodeName;
 
     public string FolderName { get; set; } = string.Empty;
