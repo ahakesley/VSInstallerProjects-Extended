@@ -3,6 +3,7 @@
 namespace SetupProjectHelper.VdprojLibrary.Models.Configurations
 {
     [VdprojNode("")]
+    [UseNodeName]
     public class BootstrapperItem
     {
         public string NodeName { get; set; } = string.Empty;
@@ -12,5 +13,13 @@ namespace SetupProjectHelper.VdprojLibrary.Models.Configurations
 
         [VdprojProperty("ProductCode")]
         public string ProductCode { get; set; } = string.Empty;
+
+        public override string ToString() => NodeName;
+    }
+
+    public class BootstrapperItemNode
+    {
+        [VdprojNode("")]
+        public List<BootstrapperItem> BootstrapperItems { get; set; } = new();
     }
 }

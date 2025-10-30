@@ -47,7 +47,7 @@ namespace SetupProjectHelper.VdprojLibrary.Models.Configurations
         [VdprojProperty("InstallerBootstrapper")]
         public int InstallerBootstrapper { get; set; } = -1;
 
-        [VdprojNode("BootstrapperCfg:*")]
+        [VdprojNode("BootstrapperCfg:")]
         public Bootstrapper Bootstrapper { get; set; } = new();
 
         public override string ToString() => NodeName;

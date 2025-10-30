@@ -32,7 +32,8 @@ namespace SetupProjectHelper.VdprojLibrary
                 List<VdprojNode> matchingChildren = node.Children
                     .Where(c =>
                         string.IsNullOrWhiteSpace(nodeAttribute.NodeName) ||
-                        c.Name == nodeAttribute.NodeName).ToList();
+                        c.Name == nodeAttribute.NodeName ||
+                        c.Name.StartsWith(nodeAttribute.NodeName)).ToList();
 
                 if (property.PropertyType.IsGenericType &&
                     property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))

@@ -11,9 +11,8 @@ namespace SetupProjectHelper.VdprojLibrary.Models.Configurations
         [VdprojProperty("PromptEnabled")]
         public bool PromptEnabled { get; set; } = false;
 
-        // TODO work out type for PrerequisitesLocation
         [VdprojProperty("PrerequisitesLocation")]
-        public object? PrerequisitesLocation { get; set; } = null;
+        public short PrerequisitesLocation { get; set; } = -1;
 
         [VdprojProperty("Url")]
         public string Url { get; set; } = string.Empty;
@@ -21,8 +20,7 @@ namespace SetupProjectHelper.VdprojLibrary.Models.Configurations
         [VdprojProperty("ComponentsUrl")]
         public string ComponentsUrl { get; set; } = string.Empty;
 
-        // TODO handle ComponentsUrl.Children
         [VdprojNode("Items")]
-        public List<BootstrapperItem> Items { get; set; } = new();
+        public List<BootstrapperItemNode> Items { get; set; } = new();
     }
 }
