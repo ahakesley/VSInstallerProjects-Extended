@@ -16,18 +16,9 @@ public class ViewModel : NotificationObject
 
     public ViewModel()
     {
-        VdprojFilePath =
-            @"C:\Users\Alex\Documents\GitHub\GeminiX\Application\GX3Client\Source\GX3ClientSetup\GX3ClientSetup.vdproj";
-        
-        VdprojParser parser = new();
-        string[] lines = File.ReadAllLines(VdprojFilePath);
-        VdprojNode root = parser.Parse(lines);
-
-        var test = VdprojMapper.MapNode<DeployProject>(root);
-        VdprojMapper.ResolveAssemblyFileFolderNames(test.Deployable.Files.FileEntries, test.Deployable.Folders.Folders);
-
-        var assemblyFiles = test.Deployable.Files.FileEntries.Select(file => new FileEntryViewModel(file));
-        AssemblyFiles = new ObservableCollection<FileEntryViewModel>(assemblyFiles);
+        // for quick testing
+        // remove once happy with parsing/mapping
+        ReadProjectFile();
 
         BrowseProjectFilePathCommand = new DelegateCommand(BrowseProjectFilePath);
         OpenFileEntryPropertiesCommand = new DelegateCommand(OpenFileEntryProperties);
@@ -104,6 +95,21 @@ public class ViewModel : NotificationObject
         }
     }
 
+    private void ReadProjectFile()
+    {
+        VdprojFilePath =
+            @"C:\Users\alexh\Downloads\GX3Server.vdproj";
+
+        VdprojParser parser = new();
+        string[] lines = File.ReadAllLines(VdprojFilePath);
+        VdprojNode root = parser.Parse(lines);
+
+        DeployProject test = VdprojMapper.MapNode<DeployProject>(root);
+        VdprojMapper.ResolveAssemblyFileFolderNames(test.Deployable.Files.FileEntries, test.Deployable.Folders.Folders);
+
+        IEnumerable<FileEntryViewModel> assemblyFiles = test.Deployable.Files.FileEntries.Select(file => new FileEntryViewModel(file));
+        AssemblyFiles = new ObservableCollection<FileEntryViewModel>(assemblyFiles);
+    }
 }
 
 public class FileEntryViewModelFactory
