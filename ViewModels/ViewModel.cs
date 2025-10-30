@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using Microsoft.Win32;
 using SetupProjectHelper.VdprojLibrary;
 using SetupProjectHelper.VdprojLibrary.Models;
 using SetupProjectHelper.VdprojLibrary.Models.Deployable;
@@ -28,10 +29,12 @@ public class ViewModel : NotificationObject
         var assemblyFiles = test.Deployable.Files.FileEntries.Select(file => new FileEntryViewModel(file));
         AssemblyFiles = new ObservableCollection<FileEntryViewModel>(assemblyFiles);
 
+        BrowseProjectFilePathCommand = new DelegateCommand(BrowseProjectFilePath);
         OpenFileEntryPropertiesCommand = new DelegateCommand(OpenFileEntryProperties);
     }
 
     public DelegateCommand OpenFileEntryPropertiesCommand { get; set; }
+    public DelegateCommand BrowseProjectFilePathCommand { get; private set; }
 
     public ObservableCollection<FileEntryViewModel> AssemblyFiles
     {
@@ -89,6 +92,18 @@ public class ViewModel : NotificationObject
             window.ShowDialog();
         }
     }
+
+    private void BrowseProjectFilePath()
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+        bool? result = openFileDialog.ShowDialog();
+
+        if (result == true)
+        {
+            VdprojFilePath = openFileDialog.FileName;
+        }
+    }
+
 }
 
 public class FileEntryViewModelFactory
