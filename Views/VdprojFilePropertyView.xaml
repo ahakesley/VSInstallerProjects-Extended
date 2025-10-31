@@ -6,15 +6,19 @@
         xmlns:viewModels="clr-namespace:SetupProjectHelper.ViewModels"
         xmlns:views="clr-namespace:SetupProjectHelper.Views"
         mc:Ignorable="d"
-        Title="VdprojFilePropertyView"
+        Title="{Binding FileEntryViewModel.Name}"
         SizeToContent="WidthAndHeight">
     <Window.DataContext>
         <viewModels:VdprojFilePropertyViewModel/>
     </Window.DataContext>
 
-    <Grid>
-        <views:AutoPropertyGrid TargetObject="{Binding FileEntryViewModel}" Grid.IsSharedSizeScope="True"></views:AutoPropertyGrid>
-        
-        
+    <Grid IsSharedSizeScope="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition SharedSizeGroup="KeyColumn"/>
+            <ColumnDefinition SharedSizeGroup="ValueColumn"/>
+        </Grid.ColumnDefinitions>
+        <views:AutoPropertyGrid TargetObject="{Binding FileEntryViewModel}" Grid.ColumnSpan="2" Grid.IsSharedSizeScope="True"/>
+
+
     </Grid>
 </Window>
